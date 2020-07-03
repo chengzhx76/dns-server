@@ -6,6 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.dns.*;
 
+import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +36,8 @@ public class DnsServerHandler extends SimpleChannelInboundHandler<DatagramDnsQue
             } else {
                 // TODO  对于没有的域名采用迭代方式
                 // buf = Unpooled.wrappedBuffer(new byte[] { 127, 0, 0, 1});
+                System.out.println("域名：" + dnsQuestion.name() + "不在 ipMapping表中");
+                buf = Unpooled.wrappedBuffer(InetAddress.getByName(dnsQuestion.name()).getAddress());
             }
             // TTL设置为10s, 如果短时间内多次请求，客户端会使用本地缓存
             DefaultDnsRawRecord queryAnswer = new DefaultDnsRawRecord(dnsQuestion.name(), DnsRecordType.A, 10, buf);
