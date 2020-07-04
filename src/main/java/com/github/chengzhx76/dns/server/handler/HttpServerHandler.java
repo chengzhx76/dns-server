@@ -19,7 +19,8 @@ import java.util.Map;
 public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest fullHttpRequest) throws Exception {
-
+        String uri = fullHttpRequest.uri();
+        System.out.println(uri);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.github.chengzhx76.dns.server;
 
 import com.github.chengzhx76.dns.server.handler.DnsServerHandler;
+import com.github.chengzhx76.dns.server.handler.HttpServerHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -28,5 +29,6 @@ public class ServerInitializer extends ChannelInitializer<Channel> {
         pipeline.addLast(new HttpServerCodec());
         pipeline.addLast(new HttpObjectAggregator(65536));
         pipeline.addLast(new ChunkedWriteHandler());
+        pipeline.addLast(new HttpServerHandler());
     }
 }
